@@ -1,4 +1,4 @@
-language: viml
+language: ruby
 install:
   - git clone https://github.com/thinca/vim-themis
 script:
