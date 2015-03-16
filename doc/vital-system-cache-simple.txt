@@ -1,6 +1,6 @@
 *vital-system-cache-simple.txt*	A simple cache system
 
-Version: 0.1.0
+Version: 0.2.0
 Author:  Alisue <lambdalisue@hashnote.net>   *Vital.System.Cache.Simple-author*
 Support: Vim 7.3 and above
 License: MIT license  {{{
@@ -82,6 +82,16 @@ new()				*Vital.System.Cache.Simple.new()*
 
 	Create a new instance of System.Cache.Simple.
 
+hash({obj})			*Vital.System.Cache.Simple.hash()*
+
+	Create a hashable |String| from {obj}.
+	The {obj} is first translated into |String| via |string| function if
+	it is not |String|.
+	The result string which length is more or equals to 150 will be then
+	translated into a hash string via |Vital.Data.String.hash()| function.
+	Otherwise ':', '/' and '\' in the string are substituted into '=-',
+	'=+', and '=+' respectively and returned.
+
 
 ==============================================================================
 METHODS					*Vital.System.Cache.Simple-methods*
@@ -89,12 +99,14 @@ METHODS					*Vital.System.Cache.Simple-methods*
 cache_key({obj})		*Vital.System.Cache.Simple.cache_key()*
 
 	Return a |String| which will be used as a cache key.
-	Users need to override this method to use non |String| objects as a
-	cache name.
+	User should override this method to translate non |String| object into
+	|String|, otherwise |Vital.System.Cache.Simple.hash()| will be used to
+	translate non |String| object into |String|.
 
 	{obj} (required)
 	Any value if users override this method to translate {obj} to
-	|String|. Otherwise it must be a |String| value.
+	|String|. Otherwise it translate {obj} into |String| via
+	|Vital.System.Cache.Simple.hash()| function.
 
 has({name})			*Vital.System.Cache.Simple.has()*
 
@@ -104,7 +116,7 @@ has({name})			*Vital.System.Cache.Simple.has()*
 	{name} (required)
 	A name of the cache. An actual cache key will be created via
 	|Vital.System.Cache.Simple.cache_key()| method thus {name} is not
-	required to be |String| if users override the 'cache_key' method.
+	required to be |String|.
 
 get({name}, [, {default}])	*Vital.System.Cache.Simple.get()*
 
@@ -114,7 +126,7 @@ get({name}, [, {default}])	*Vital.System.Cache.Simple.get()*
 	{name} (required)
 	A name of the cache. An actual cache key will be created via
 	|Vital.System.Cache.Simple.cache_key()| method thus {name} is not
-	required to be |String| if users override the 'cache_key' method.
+	required to be |String|.
 
 	{default} (optional)
 	A default value. It will be returned when no value is found in the
@@ -127,19 +139,20 @@ set({name}, {value})		*Vital.System.Cache.Simple.set()*
 	{name} (required)
 	A name of the cache. An actual cache key will be created via
 	|Vital.System.Cache.Simple.cache_key()| method thus {name} is not
-	required to be |String| if users override the 'cache_key' method.
+	required to be |String|.
 
 	{value} (required)
 	A value of the cache.
 
 remove({name})			*Vital.System.Cache.Simple.remove()*
 
-	Remove {name} from a cache dictionary.
+	Remove {name} from a cache dictionary. It does nothing when the
+	specified {name} is not found in the cache.
 
 	{name} (required)
 	A name of the cache. An actual cache key will be created via
 	|Vital.System.Cache.Simple.cache_key()| method thus {name} is not
-	required to be |String| if users override the 'cache_key' method.
+	required to be |String|.
 
 clear()		        	*Vital.System.Cache.Simple.clear()*
 

@@ -4,7 +4,7 @@ vital-System-Cache-Simple
 
 A simple cache system
 
-- Version:  0.1.0
+- Version:  0.2.0
 - Author:   Alisue <lambdalisue@hashnote.net>
 - Support:  Vim 7.3 and above
 
@@ -48,6 +48,8 @@ endfunction
 echo s:factorial(10)
 ```
 
+See [vital-system-cache-simple.txt](./doc/vital-system-cache-simple.txt) for more information.
+
 
 INSTALL
 ==============================================================================
@@ -55,6 +57,17 @@ INSTALL
 ```vim
 NeoBundle 'lambdalisue/vital-System-Cache-Simple'
 ```
+
+
+VITALIZE
+==============================================================================
+
+You can add this vital module into your plugin via
+
+```vim
+:Vitalize . +System.Cache.Simple
+```
+
 
 LICENSE
 ==============================================================================
