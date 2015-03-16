@@ -9,6 +9,31 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
+function! s:_vital_loaded(V) dict abort " {{{
+  let s:V = a:V
+  let s:Prelude = a:V.import('Prelude')
+  let s:String = a:V.import('Data.String')
+endfunction " }}}
+function! s:_vital_depends() abort " {{{
+  return [
+        \ 'Prelude',
+        \ 'Data.String',
+        \]
+endfunction " }}}
+
+function! s:hash(obj) " {{{
+  let str = s:Prelude.is_string(a:obj) ? a:obj : string(a:obj)
+  if strlen(str) < 150
+    " hash might be a filename thus.
+    let hash = str
+    let hash = substitute(hash, ':', '=-', 'g')
+    let hash = substitute(hash, '[/\\]', '=+', 'g')
+  else
+    let hash = s:String.hash(str)
+  endif
+  return hash
+endfunction " }}}
+
 let s:cache = {
       \ '_cached': {},
       \}
@@ -20,7 +45,7 @@ function! s:new() " {{{
 endfunction " }}}
 function! s:cache.cache_key(obj) dict " {{{
   " Return a cache_key of 'obj'.
-  return a:obj
+  return s:hash(a:obj)
 endfunction " }}}
 function! s:cache.has(name) dict " {{{
   " Return if the instance has a cache of 'name'

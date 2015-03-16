@@ -4,6 +4,33 @@ let s:V = vital#of('vital')
 Describe System.Cache.Simple
   let s:C = s:V.import('System.Cache.Simple')
 
+  Context .hash({str})
+    It should return an empty string if {str} is empty
+      let hash = s:C.hash('')
+      Assert Equals(hash, '')
+    End
+
+    It should return a substitution if the length of {str} is less than 150
+      let hash = s:C.hash('hello')
+      Assert Equals(hash, 'hello')
+
+      let hash = s:C.hash('foo:bar')
+      Assert Equals(hash, 'foo=-bar')
+
+      let hash = s:C.hash('foo/bar')
+      Assert Equals(hash, 'foo=+bar')
+
+      let hash = s:C.hash('foo\bar')
+      Assert Equals(hash, 'foo=+bar')
+    End
+
+    It should return a hash if the length of {str} is 150 or over
+      let obj = repeat('a', 200)
+      let hash = s:C.hash(obj)
+      Assert True(strlen(hash) < strlen(obj))
+    End
+  End
+
   Context .new()
     It should return an instance
       let cache = s:C.new()
