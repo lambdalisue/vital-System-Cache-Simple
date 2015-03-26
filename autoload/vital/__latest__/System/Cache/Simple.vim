@@ -85,6 +85,9 @@ function! s:cache.remove(name) dict " {{{
     unlet self._cached[cache_key]
   endif
 endfunction " }}}
+function! s:cache.keys() dict " {{{
+  return keys(self._cached)
+endfunction " }}}
 function! s:cache.clear() dict " {{{
   " Clear all cache saved in this instance
   let self._cached = {}

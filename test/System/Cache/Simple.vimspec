@@ -114,7 +114,7 @@ Describe System.Cache.Simple
       End
     End
 
-    Context .clear(name)
+    Context .clear()
       It should clear a cache dictionary
         let cache._cached = {
               \ 'foo': 'foo',
@@ -122,6 +122,17 @@ Describe System.Cache.Simple
               \}
         call cache.clear()
         Assert Equals(cache._cached, {})
+      End
+    End
+
+    Context .keys()
+      It should return a list of keys
+        let cache._cached = {
+              \ 'foo': 'foo',
+              \ 'bar': 'bar',
+              \}
+        let r = cache.keys()
+        Assert Equals(sort(r), sort(['foo', 'bar']))
       End
     End
   End

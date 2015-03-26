@@ -154,6 +154,10 @@ remove({name})			*Vital.System.Cache.Simple.remove()*
 	|Vital.System.Cache.Simple.cache_key()| method thus {name} is not
 	required to be |String|.
 
+keys()		        	*Vital.System.Cache.Simple.keys()*
+
+	Return a list of cache keys
+
 clear()		        	*Vital.System.Cache.Simple.clear()*
 
 	Clear a cache dictionary.
