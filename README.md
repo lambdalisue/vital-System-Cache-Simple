@@ -2,6 +2,8 @@ vital-System-Cache-Simple
 ==============================================================================
 [![Build Status](https://travis-ci.org/lambdalisue/vital-System-Cache-Simple.svg)](https://travis-ci.org/lambdalisue/vital-System-Cache-Simple)
 
+**Obsolute: Use https://github.com/lambdalisue/vital-System-Cache-Unified**
+
 A simple cache system
 
 - Version:  0.3.0
